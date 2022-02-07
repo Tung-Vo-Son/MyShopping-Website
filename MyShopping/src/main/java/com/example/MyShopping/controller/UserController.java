@@ -31,9 +31,9 @@ public class UserController {
     @GetMapping("/users/add")
     public String newUser(Model model){
         User user = new User();
-//        List<Role> listRoles = userService.getListRole();
+        List<Role> listRoles = userService.getListRole();
         model.addAttribute("user", user);
-//        model.addAttribute("listRoles", listRoles);
+        model.addAttribute("listRoles", listRoles);
         return "user/user_add";
     }
 

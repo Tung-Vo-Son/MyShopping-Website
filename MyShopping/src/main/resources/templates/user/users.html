@@ -47,6 +47,7 @@
         <tr>
           <th>User ID</th>
           <th>Name</th>
+          <th>Email</th>
           <th>Role</th>
           <th></th>
         </tr>
@@ -55,6 +56,7 @@
         <tr th:each="user : ${listUser}">
           <td> [[${user.id}]]</td>
           <td> [[${user.name}]]</td>
+          <td> [[${user.email}]]</td>
           <td> [[${user.roles}]]</td>
           <td>
             <a th:href="@{'/users/edit/' + ${user.id}}"> Edit </a>

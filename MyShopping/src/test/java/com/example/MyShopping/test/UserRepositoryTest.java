@@ -29,7 +29,7 @@ public class UserRepositoryTest {
     @Test
     public void testCreateUser(){
         Role roleAdmin = testEntityManager.find(Role.class, 1);
-        User userAdmin = new User("Elon Musk", "de anh Tung");
+        User userAdmin = new User("Elon Musk", "elonmusk@gmail.com", "de anh Tung");
         userAdmin.addRole(roleAdmin);
         User savedUser = userRepository.save(userAdmin);
         assertThat(savedUser.getId()).isGreaterThan(0);
