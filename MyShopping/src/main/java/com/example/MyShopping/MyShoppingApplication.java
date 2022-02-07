@@ -9,6 +9,6 @@ public class MyShoppingApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(MyShoppingApplication.class, args);
-	}
+	}S
 
 }
