@@ -5,6 +5,8 @@ import com.example.MyShopping.entity.User;
 import com.example.MyShopping.repository.RoleRepository;
 import com.example.MyShopping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,9 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> listAll(){
         return (List<User>) userRepository.findAll();
     }
@@ -27,6 +32,7 @@ public class UserService {
     }
 
     public void save(User user){
+        endcodePassword(user);
         userRepository.save(user);
     }
 
@@ -35,5 +41,10 @@ public class UserService {
         if(deleteUser.isPresent()){
             userRepository.deleteById(id);
         }
+    }
+
+    private void endcodePassword(User user){
+        String encodePassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodePassword);
     }
 }

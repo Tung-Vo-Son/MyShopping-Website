@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
@@ -26,10 +27,17 @@ public class UserRepositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    public String encodePassword(String rawPassword){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodePassword = passwordEncoder.encode(rawPassword);
+        return encodePassword;
+    }
+
     @Test
     public void testCreateUser(){
         Role roleAdmin = testEntityManager.find(Role.class, 1);
-        User userAdmin = new User("Elon Musk", "elonmusk@gmail.com", "de anh Tung");
+        String password = "11111111";
+        User userAdmin = new User("Tung", "tungson@gmail.com", encodePassword(password));
         userAdmin.addRole(roleAdmin);
         User savedUser = userRepository.save(userAdmin);
         assertThat(savedUser.getId()).isGreaterThan(0);
@@ -52,5 +60,13 @@ public class UserRepositoryTest {
     public void testDeleteUser(){
         Integer deleteID = 2;
         userRepository.deleteById(deleteID);
+    }
+
+    @Test
+    public void testFindByEmail(){
+        String email = "harrypotter@gmail.com";
+        User user = userRepository.findByEmail(email);
+        System.out.println(user);
+        assertThat(user).isNotNull();
     }
 }

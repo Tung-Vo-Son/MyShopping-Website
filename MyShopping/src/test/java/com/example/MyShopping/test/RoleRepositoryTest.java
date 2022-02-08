@@ -21,7 +21,8 @@ public class RoleRepositoryTest {
     public void testCreateRole(){
         Role roleAdmin = new Role("Admin", "Manage anything");      // id = 1
         Role roleSales = new Role("Sales", "add product,sale product,...");       // id = 2
-        Role savedRole = roleRepository.save(roleSales);
+        Role roleCustomer = new Role("Customer", "buy product, review,...");     // id = 3
+        Role savedRole = roleRepository.save(roleCustomer);
         assertThat(savedRole.getId()).isGreaterThan(0);
     }
 

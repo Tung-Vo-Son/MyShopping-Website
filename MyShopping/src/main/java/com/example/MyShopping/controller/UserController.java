@@ -39,7 +39,6 @@ public class UserController {
 
     @PostMapping("/users/save")
     public String saveUser(User user){
-        user.addRole(entityManager.find(Role.class,1));
         System.out.println(user);
         userService.save(user);
         return "redirect:/users";
