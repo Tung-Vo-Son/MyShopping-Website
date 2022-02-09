@@ -49,4 +49,19 @@ public class UserController {
         userService.delete(id);
         return "redirect:/users";
     }
+
+    @PostMapping("/signup")
+    public String signupCustomer(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "user/signup";
+    }
+
+    @PostMapping("/customers/signup")
+    public String saveSignUp(User customer){
+        System.out.println(customer);
+        userService.addRoleCustomer(customer);
+        userService.save(customer);
+        return "redirect:/login";
+    }
 }

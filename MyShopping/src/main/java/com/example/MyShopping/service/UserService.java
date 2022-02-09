@@ -5,7 +5,6 @@ import com.example.MyShopping.entity.User;
 import com.example.MyShopping.repository.RoleRepository;
 import com.example.MyShopping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +40,11 @@ public class UserService {
         if(deleteUser.isPresent()){
             userRepository.deleteById(id);
         }
+    }
+
+    public void addRoleCustomer(User user){
+        Optional<Role> roleCustomer = roleRepository.findById(3);
+        user.addRole(roleCustomer.get());
     }
 
     private void endcodePassword(User user){

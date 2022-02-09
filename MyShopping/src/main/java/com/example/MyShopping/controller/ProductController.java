@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -40,5 +41,15 @@ public class ProductController {
     public String deleteProduct(@PathVariable(name = "id") Integer id){
         productService.delete(id);
         return "redirect:/products";
+    }
+
+    @GetMapping("/products/view/{id}")
+    public String viewProduct(@PathVariable(name = "id") Integer id, Model model){
+        Optional<Product> product = productService.findById(id);
+        if(product.isPresent()) {
+            model.addAttribute("product", product);
+            return "product/product_view";
+        }
+        else return null;
     }
 }

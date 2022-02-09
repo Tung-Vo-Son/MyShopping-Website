@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,15 +43,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/users/**").hasAuthority("Admin")     // Add authority-> user must has this author to acess link url.
+                .antMatchers("/signup").permitAll()
+                .antMatchers("/customers/signup").permitAll()
                 .anyRequest().authenticated()                       // All request must be authenticated to access
                 .and()
                 .formLogin()                                        // Allow user to acess throught login page
                 .loginPage("/login")                                // Login page with this url;
                 .usernameParameter("email").permitAll()             // Permit with email.
-                .defaultSuccessUrl("/home", true);  // Return to this url if access url successfully.
+                .defaultSuccessUrl("/home", true)  // Return to this url if access url successfully.
                 /* Add (sec:authorize="hasAuthority('insert roles here')") in card in file.html
                    If user with correct role -> card appear
                    Else -> card disapper.
                 */
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
     }
 }
