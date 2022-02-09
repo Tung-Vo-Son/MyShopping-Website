@@ -5,10 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurity extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Bean
     public UserDetailsService userDetailsService(){
@@ -43,11 +41,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/users/**").hasAuthority("Admin")     // Add authority-> user must has this author to acess link url.
                 .anyRequest().authenticated()                       // All request must be authenticated to access
                 .and()
                 .formLogin()                                        // Allow user to acess throught login page
                 .loginPage("/login")                                // Login page with this url;
-                .usernameParameter("email")
-                .permitAll();
+                .usernameParameter("email").permitAll()             // Permit with email.
+                .defaultSuccessUrl("/home", true);  // Return to this url if access url successfully.
+                /* Add (sec:authorize="hasAuthority('insert roles here')") in card in file.html
+                   If user with correct role -> card appear
+                   Else -> card disapper.
+                */
     }
 }

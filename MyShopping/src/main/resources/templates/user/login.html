@@ -5,19 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset = UTF-8">
     <meta name = "viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <title>MyShoping Website</title>
+    <title>MyShoping Website</title>
+    <style>
+        body{
+            background-color : #3E3E3E
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid text-center" >
-    <div>
-        <img th:src="@{/images/logo.png}" width="300" height="100">
-    </div>
+<!--    <div>-->
+<!--        <img th:src="@{/images/logo.png}" width="300" height="100">-->
+<!--    </div>-->
     <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
-        <div th:if="${param.error}">
-            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        <div th:if="${param.error}" class="alert alert-error">
+            Invalid username and password.
         </div>
         <div class="border border-secondary rounded p-3">
-            <p> Access to MyShopping </p>
+            <h3 style="color:white"> Access to MyShopping </h3>
             <p>
                 <input type="email" name="email" class="form-control" placeholder="Email" required>
             </p>
@@ -33,6 +38,39 @@
         <p>MyShopping Control Panel - Copyright &copy; MyShopping</p>
     </div>
 </div>
-
 </body>
 </html>
+
+<!-- Copy from default login of Spring boot -->
+<!--<html lang="en"><head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <title>Log in page</title>-->
+<!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+<!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">-->
+<!--    <style>-->
+<!--        body{-->
+<!--            background-color = #3e3e3e-->
+<!--            color:white;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <form class="form-signin" method="post" action="/login">-->
+<!--        <h2 class="form-signin-heading">Please sign in</h2>-->
+<!--        <p>-->
+<!--            <label for="email" class="sr-only">Email</label>-->
+<!--            <input type="text" id="email" name="email" class="form-control" placeholder="Email" required="" autofocus="">-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            <label for="password" class="sr-only">Password</label>-->
+<!--            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">-->
+<!--        </p>-->
+<!--        <input name="_csrf" type="hidden" value="7c4164cb-a8f3-4c77-bde8-7d9f2f786683">-->
+<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>-->
+<!--    </form>-->
+<!--</div>-->
+<!--</body></html>-->
