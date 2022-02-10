@@ -25,6 +25,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(Integer id) {
+        this.id = id;
+    }
+
     public Product(String name, float price, int quantity) {
         this.name = name;
         this.price = price;

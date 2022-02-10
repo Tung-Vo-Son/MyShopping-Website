@@ -29,7 +29,7 @@
             <a class="nav-link" th:href="@{/products}">Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" th:href="@{/customers}">Customers</a>
+            <a class="nav-link" th:href="@{/customers}" sec:authorize="hasAuthority('Admin')">Customers</a>
           </li>
           <!--    Download font awesome to use fas      -->
           <!--          <li>-->

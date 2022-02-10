@@ -51,4 +51,8 @@ public class UserService {
         String encodePassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodePassword);
     }
+
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
 }

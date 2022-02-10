@@ -7,6 +7,7 @@
   <div th:replace="fragment::page_menu"></div>
   <div>
     <h2> Product List </h2>
+    <a th:href="@{/cart}" sec:authorize="hasAuthority('Customer')"> View shopping cart</a>
     <a th:href="@{/products/add}" sec:authorize="hasAuthority('Admin')"> Add new product </a> <!--Only user with role "Admin" access then code will show-->
   </div>
   <div>
@@ -19,6 +20,7 @@
           <th style="width: 200px">Remaing Quantity</th>
           <th style="width: 100px">Rating</th>
           <th sec:authorize="hasAuthority('Admin')"></th>
+          <th sec:authorize="hasAuthority('Customer')"></th>
         </tr>
       </thead>
       <tbody>
@@ -34,6 +36,9 @@
             <a th:href="@{'/products/edit/' + ${product.id}}"> Edit </a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a th:href="@{'/products/delete/' + ${product.id}}"> Delete </a>
+          </td>
+          <td sec:authorize="hasAuthority('Customer')">
+            <a th:href="@{'/cart/' + ${product.id}}"> Buy </a>
           </td>
         </tr>
       </tbody>

@@ -10,5 +10,4 @@ public class MyShoppingApplication {
 
 		SpringApplication.run(MyShoppingApplication.class, args);
 	}
-
 }
